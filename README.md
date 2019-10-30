@@ -4,4 +4,7 @@ This project collects data from various sensors (some of the values may contain 
 The algorithm is an implementation of the following paper:
 
 G. Hongyan, "A simple multi-sensor data fusion algorithm based on principal component analysis," 2009 ISECS International Colloquium on Computing, Communication, Control, and Management, Sanya, 2009, pp. 423-426.
-doi: 10.1109/CCCM.2009.5267459
+
+# Authors
+1. Shivam Goel 
+2. Rishabh Shrivastav
