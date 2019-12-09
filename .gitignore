@@ -1,2 +1,7 @@
+# Ignoring object (.o) and executable(.exe) files
+
 bin/*
 build/*
+
+# Ignoring Mac System Files
+.DS_Store
