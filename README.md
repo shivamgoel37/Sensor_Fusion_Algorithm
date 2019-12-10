@@ -8,3 +8,5 @@ G. Hongyan, "A simple multi-sensor data fusion algorithm based on principal comp
 # Authors
 1. Shivam Goel 
 2. Rishabh Shrivastav
+3. Kunal Markan
+4. Prabh Lobana
