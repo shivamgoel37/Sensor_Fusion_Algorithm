@@ -15,6 +15,26 @@ double prev_sensor_values[SENSOR_COUNT];
 char tokens[3][1024];
 double e = 2.718281828459;
 
+/**
+ * \brief Function to set the values of each element of the degree matrix to "0"
+ * Takes SENSOR_COUNT as the test condition parameter
+ * Clears any previous sensor values
+ */
+void init() {
+    int i,j;
+    for(i=0;i<SENSOR_COUNT;i++) {
+        
+        for(j=0;j<SENSOR_COUNT;j++) {
+            
+            mtx_d[i][j]=0;
+        }
+    }
+    
+    for(i=0;i<SENSOR_COUNT;i++) {
+        sensor_values[i]=0;
+    }
+}
+
 void copy_to_prev() {
     int i;
     for(i=0;i<SENSOR_COUNT;i++) {
