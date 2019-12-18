@@ -16,9 +16,8 @@ char tokens[3][1024];
 double e = 2.718281828459;
 
 /**
- * \brief Function to set the values of each element of the degree matrix to "0"
- * Takes SENSOR_COUNT as the test condition parameter
- * Clears any previous sensor values
+ * \brief Function to reset the values of each element of the degree matrix to "0"
+ * \details clears any previous sensor values
  */
 void init() {
     int i,j;
@@ -35,6 +34,10 @@ void init() {
     }
 }
 
+/**
+ * \brief Function to set the values of each element of the degree matrix
+ * \details Uses SENSOR_COUNT as the test condition parameter, initialises sensor values
+ */
 void copy_to_prev() {
     int i;
     for(i=0;i<SENSOR_COUNT;i++) {
@@ -42,17 +45,24 @@ void copy_to_prev() {
     }
 }
 
-void clearTokens(char tokens[][1024]) {
+/**
+ * \brief Function to clear tokens
+ * \details Initialises the token value set in buffers to null
+ */
+void clear_tokens(char tokens[][1024]) {
     int i;
     for(i=0;i<3;i++) {
         tokens[i][0]='\0';
     }
 }
 
-void takeTokensValue() {
-    /**
-     *sens1,10 -> sensor_value[0]=10
-     */
+/**
+ * \brief Function to set sensor values
+ * \details sensor name and value is set according to tokens
+ */
+void take_tokens_value() {
+    //sens1,10 -> sensor_value[0]=10
+     
     char sensorname[100];
     int i;
     int j=0;
@@ -69,7 +79,7 @@ void takeTokensValue() {
     sensor_values[sensorno-1]=sensorvalue;
 }
 
-double myAbs(double f) {
+double my_abs(double f) {
     return (f>0)?f:-f;
 }
 
@@ -186,7 +196,7 @@ void fusedvalue(FILE* fp, char* prevtime) {
         totalZ+=Z[i];
     }
     
-    double prescribedrange=myAbs(totalZ/SENSOR_COUNT*1.0)*0.7;
+    double prescribedrange=my_abs(totalZ/SENSOR_COUNT*1.0)*0.7;
 
     /**
 	 * Calculate condition
@@ -195,7 +205,7 @@ void fusedvalue(FILE* fp, char* prevtime) {
     double totalCondZ=0;
     
     for(i=0;i<SENSOR_COUNT;i++) {
-        if(myAbs(Z[i])<prescribedrange) {
+        if(my_abs(Z[i])<prescribedrange) {
             condZ[i]=0;
         }
         else {
@@ -259,10 +269,10 @@ int main(void) {
     int row_count = 0;
 
 /** 
- * File handling operatoins are done below
- * Input is read from .csv file from the path and opened in "r" or read mode
- * appropriate exception handling is also done
- * Output is generated at runtime in a .csv file format and saved at the path
+ * \brief File handling operatoins are done below
+ * \details Input read from .csv file opened in "r" mode
+ * appropriate exception handling is done
+ * Output generated at in a .csv file format and saved
  */
        
     FILE *fp = fopen("../data/input.csv", "r");
@@ -285,8 +295,7 @@ int main(void) {
 
 /**
  * \brief Function call to initialise the reading process of each sensor
- * \details The definition of the following two functoin calls is defined in "main.h" header file 
- * Each reading value is parsed from the input file in the loop
+ * \details Each reading value is parsed from the input file in the loop
  * The first row from the input file is ignored by "row_count == 1"
  */    
     init();
@@ -300,12 +309,10 @@ int main(void) {
             continue;
         }
 
-        clearTokens(tokens);
+        clear_tokens(tokens);
         int tokenIndex=0;
 
-        /**
-         * Fetching Tokens in row and splitting the string by ","
-         */
+        //Fetching Tokens in row and splitting the string by ","
 
         char* token;
         token=strtok(buf,",");
@@ -319,26 +326,22 @@ int main(void) {
         }
         else {
             if(strcmp(prevtime,tokens[0])!=0){
-                /**
-                 * When time is changed, calculate the previous fused_value 
-                 */
+                
+                //When time is changed, calculate the previous fused_value 
                 
                 fusedvalue(fout,prevtime);
                 copy_to_prev();
-
-                /**
-                 Start new time
-                 */
+                
+                //Start new time
                 strcpy(prevtime,tokens[0]);
                 init();
             }
         }
-        takeTokensValue();
+        take_tokens_value();
     }
 
-    /**
-     *fprintf(fout,"%s,%f\n",prevtime, fusedvalue());
-     */
+    //fprintf(fout,"%s,%f\n",prevtime, fusedvalue());
+     
     fusedvalue(fout,prevtime);
     
     fclose(fp);
