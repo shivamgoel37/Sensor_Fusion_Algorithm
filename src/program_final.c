@@ -1,4 +1,5 @@
 /**
+ * \file program_final.c
  * \brief This file contains the function definitions to implement the Sensor Fusion Algorithm
  * \author Rishabh Shrivastav
  * \       Shivam Goel
@@ -37,6 +38,8 @@ void init() {
 /**
  * \brief Function to set the values of each element of the degree matrix
  * \details Uses SENSOR_COUNT as the test condition parameter, initialises sensor values
+ * \details Each reading value is parsed from the input file in the loop
+ * The first row from the input file is ignored by "row_count == 1"
  */
 void copy_to_prev() {
     int i;
@@ -79,6 +82,10 @@ void take_tokens_value() {
     sensor_values[sensorno-1]=sensorvalue;
 }
 
+/**
+ * \brief Function to check test file 
+ * \details file pointer is checked whether it works or not
+ */
 double my_abs(double f) {
     return (f>0)?f:-f;
 }
@@ -88,15 +95,16 @@ double my_abs(double f) {
 /**************************************************/
 
 /**
- * \brief Function to compute the fused value as mentioned in the paper 
+ * \brief Function to compute the fused value as mentioned in the paper
+ * \details Main functioning of the algorithm, contains all the computation steps
  * \param[in] file pointer fp
  * \param[in] previous time
  */
 void fusedvalue(FILE* fp, char* prevtime) {
 
     /**
-     * \brief Computing the support degree matrix
- 	 * \details For the given number of sensors, support degree matrix is generated
+     * Computing the support degree matrix
+ 	 * For the given number of sensors, support degree matrix is generated
      */
     int i, j, k; 
     double data[SENSOR_COUNT*SENSOR_COUNT];
@@ -111,8 +119,8 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
 
     /**
- 	 * \brief Calculating eigen values and corresponding eigen vector using GSL
- 	 * \details For a given support degree matrix of
+ 	 * Calculating eigen values and corresponding eigen vector using GSL
+ 	 * For a given support degree matrix of
  	 * sensors the corresponding eigen values and vectors are produced
  	 */
     gsl_matrix_view m = gsl_matrix_view_array (data, SENSOR_COUNT, SENSOR_COUNT);
@@ -142,8 +150,8 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
     
     /**
- 	 * \brief Compute principal component of the degree matrix
- 	 * \details Computed principal component for each of eigen vector
+ 	 * Compute principal component of the degree matrix
+ 	 * Computed principal component for each of eigen vector
  	 */
     double y[SENSOR_COUNT];
 
@@ -157,8 +165,8 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
     
     /**
- 	 * \brief Calculate the contribution rate of principal component "alpha"
- 	 * \details Compute the contribution rate of kth and mth principal components as per the paper
+ 	 * Calculate the contribution rate of principal component "alpha"
+ 	 * Compute the contribution rate of kth and mth principal components as per the paper
 	 */
     double alpha[SENSOR_COUNT];
     double totalEval=0;
@@ -180,8 +188,8 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
 
     /**
- 	 * \brief Function to compute integrated support degree
- 	 * \details Computed support degree matrix for each of the sensors
+ 	 * Compute integrated support degree
+ 	 * Computed support degree matrix for each of the sensors
 	 */
     double Z[SENSOR_COUNT];
     double totalZ=0;
@@ -216,9 +224,9 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
 
     /**
-	 * \brief Eliminating invalid sensor readings
-	 * \details Discard the faulty sensor readings from the support degree matrix
-	 * \details Compute weighted coefficients for each sensors from the support degree matrix
+	 * Eliminating invalid sensor readings
+	 * Discard the faulty sensor readings from the support degree matrix
+	 * Compute weighted coefficients for each sensors from the support degree matrix
 	 */
     double w[SENSOR_COUNT];
 
@@ -227,8 +235,8 @@ void fusedvalue(FILE* fp, char* prevtime) {
     }
 
 	/**
-	 * \brief Compute the weight coefficient for each sensor
-	 * \details Compute the aggregated value of sensors from the weighted coefficients
+	 * Compute the weight coefficient for each sensor
+	 * Compute the aggregated value of sensors from the weighted coefficients
 	 */
     double fused_value=0;
     for(i=0;i<SENSOR_COUNT;i++) {
@@ -264,16 +272,16 @@ void fusedvalue(FILE* fp, char* prevtime) {
 /********************************************/
 /********************************************/
 
-int main(void) {
-    char buf[1024];
-    int row_count = 0;
-
 /** 
  * \brief File handling operatoins are done below
  * \details Input read from .csv file opened in "r" mode
  * appropriate exception handling is done
  * Output generated at in a .csv file format and saved
  */
+int main(void) {
+    char buf[1024];
+    int row_count = 0;
+
        
     FILE *fp = fopen("../data/input.csv", "r");
 
@@ -292,12 +300,7 @@ int main(void) {
     
     
     char prevtime[20]="";   
-
-/**
- * \brief Function call to initialise the reading process of each sensor
- * \details Each reading value is parsed from the input file in the loop
- * The first row from the input file is ignored by "row_count == 1"
- */    
+    
     init();
 
     copy_to_prev();

@@ -54,26 +54,29 @@ G. Hongyan, "A simple multi-sensor data fusion algorithm based on principal comp
 
 ### INSTRUCTIONS TO RUN/COMPILE THE PROJECT
 
-1. documeantation.pdf inside the doc folder contains the explanation of this project.
+1. documentation.pdf inside the doc folder contains the explanation of this project.
 	
 2. **To run the project**
-	1. Open the terminal.
 
-	2. Set the command prompt in the Sensor_Fusion_Algorithm folder. To do so, type in the terminal the path to this folder.
+    1. Install GSL library in system. Instructions at: https://www.gnu.org/software/gsl/
+
+    2. Open the terminal.
+
+	3. Set the command prompt in the Sensor_Fusion_Algorithm folder. To do so, type in the terminal the path to this folder.
 
 		> Example: cd ../../Sensor_Fusion_Algorithm
 
-	3. To compile the project, type in the terminal:
+	4. To compile the project, type in the terminal:
 	
 		> make clean; make all;
 	
-	4. To run the algorithm, go the folder with executable files (i.e., bin folder). To do so, type in the terminal the path to this folder.
+	5. To run the algorithm, go the folder with executable files (i.e., bin folder). To do so, type in the terminal the path to this folder.
 	
 		> Example: cd bin
 	
-	5. To check the output of the computation, open "../data/output.csv"
+	6. To check the output of the computation, open "../data/output.csv"
 
-	6. To execute the results with different inputs
+	7. To execute the results with different inputs
 		- Create a new .csv file with the same structure as input.csv in /data folder
 		- Run the algorithm by just chanding the path of the input file in the code to the new file name path
 			> Example: FILE *fp = fopen("../data/new_input.csv", "r");

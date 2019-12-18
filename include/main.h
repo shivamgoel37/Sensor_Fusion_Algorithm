@@ -1,5 +1,5 @@
-/**
-* \brief This file contains the header files to implement the Sensor Fusion Algorithm
+/** 
+* \file main.h
 * \details Sensor Count is set to 3, but can be changed accordingly as required
 * \author Rishabh Shrivastav
 * \       Shivam Goel
