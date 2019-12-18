@@ -48,8 +48,8 @@ G. Hongyan, "A simple multi-sensor data fusion algorithm based on principal comp
 1. data [This folder contains the data files for unit tests]
 2. src [This folder contains the source files for unit tests]
 
-##### makefile [This file is used to run the program
-]
+##### makefile [This file is used to run the program]
+
 ##### README.md [This file has the readme information about the project]
 
 ### INSTRUCTIONS TO RUN/COMPILE THE PROJECT
