@@ -1,0 +1,163 @@
+\hypertarget{program__final_8c}{}\section{src/program\+\_\+final.c File Reference}
+\label{program__final_8c}\index{src/program\+\_\+final.\+c@{src/program\+\_\+final.\+c}}
+
+
+This file contains the function definitions to implement the Sensor Fusion Algorithm.  
+
+
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{program__final_8c_a02fd73d861ef2e4aabb38c0c9ff82947}{init} ()
+\begin{DoxyCompactList}\small\item\em Function to reset the values of each element of the degree matrix to \char`\"{}0\char`\"{}. \end{DoxyCompactList}\item 
+void \hyperlink{program__final_8c_aa9536afbf66f8d46d5a598c2dee2c00d}{copy\+\_\+to\+\_\+prev} ()
+\begin{DoxyCompactList}\small\item\em Function to set the values of each element of the degree matrix. \end{DoxyCompactList}\item 
+void \hyperlink{program__final_8c_a23d76eb89fafc4bdf02fd6a31248da59}{clear\+\_\+tokens} (char tokens\mbox{[}$\,$\mbox{]}\mbox{[}1024\mbox{]})
+\begin{DoxyCompactList}\small\item\em Function to clear tokens. \end{DoxyCompactList}\item 
+void \hyperlink{program__final_8c_a2b78afc3f3a677b680c9173116866acd}{take\+\_\+tokens\+\_\+value} ()
+\begin{DoxyCompactList}\small\item\em Function to set sensor values. \end{DoxyCompactList}\item 
+double \hyperlink{program__final_8c_afd70623c27670ccd36072e13afdb50b6}{my\+\_\+abs} (double f)
+\begin{DoxyCompactList}\small\item\em Function to check test file. \end{DoxyCompactList}\item 
+void \hyperlink{program__final_8c_a324ff8489e9268cc3a3f2f77628dd629}{fusedvalue} (F\+I\+L\+E $\ast$fp, char $\ast$prevtime)
+\begin{DoxyCompactList}\small\item\em Function to compute the fused value as mentioned in the paper. \end{DoxyCompactList}\item 
+int \hyperlink{program__final_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\begin{DoxyCompactList}\small\item\em File handling operatoins are done below. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{program__final_8c_a7f2648332f8eb0baf35df79be96a07da}{}double {\bfseries mtx\+\_\+d} \mbox{[}S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+N\+T\mbox{]}\mbox{[}S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+N\+T\mbox{]}\label{program__final_8c_a7f2648332f8eb0baf35df79be96a07da}
+
+\item 
+\hypertarget{program__final_8c_af994c9d25baaedeaef4d208542362867}{}double {\bfseries sensor\+\_\+values} \mbox{[}S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+N\+T\mbox{]}\label{program__final_8c_af994c9d25baaedeaef4d208542362867}
+
+\item 
+\hypertarget{program__final_8c_af299606a293365970c154cce67f15dd3}{}double {\bfseries prev\+\_\+sensor\+\_\+values} \mbox{[}S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+N\+T\mbox{]}\label{program__final_8c_af299606a293365970c154cce67f15dd3}
+
+\item 
+\hypertarget{program__final_8c_a55f1094876d2ed70d3904a03eca940c5}{}char {\bfseries tokens} \mbox{[}3\mbox{]}\mbox{[}1024\mbox{]}\label{program__final_8c_a55f1094876d2ed70d3904a03eca940c5}
+
+\item 
+\hypertarget{program__final_8c_ab17e17fb32b792781b807505e7f60c9c}{}double {\bfseries e} = 2.\+718281828459\label{program__final_8c_ab17e17fb32b792781b807505e7f60c9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains the function definitions to implement the Sensor Fusion Algorithm. 
+
+\begin{DoxyAuthor}{Author}
+Rishabh Shrivastav \textbackslash{} Shivam Goel \textbackslash{} Kunal Markan \textbackslash{} Prabhjot Singh 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2019-\/12-\/05 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{program__final_8c_a23d76eb89fafc4bdf02fd6a31248da59}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!clear\+\_\+tokens@{clear\+\_\+tokens}}
+\index{clear\+\_\+tokens@{clear\+\_\+tokens}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{clear\+\_\+tokens}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+\_\+tokens (
+\begin{DoxyParamCaption}
+\item[{char}]{tokens\mbox{[}$\,$\mbox{]}\mbox{[}1024\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_a23d76eb89fafc4bdf02fd6a31248da59}
+
+
+Function to clear tokens. 
+
+Initialises the token value set in buffers to null \hypertarget{program__final_8c_aa9536afbf66f8d46d5a598c2dee2c00d}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!copy\+\_\+to\+\_\+prev@{copy\+\_\+to\+\_\+prev}}
+\index{copy\+\_\+to\+\_\+prev@{copy\+\_\+to\+\_\+prev}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{copy\+\_\+to\+\_\+prev}]{\setlength{\rightskip}{0pt plus 5cm}void copy\+\_\+to\+\_\+prev (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_aa9536afbf66f8d46d5a598c2dee2c00d}
+
+
+Function to set the values of each element of the degree matrix. 
+
+Uses S\+E\+N\+S\+O\+R\+\_\+\+C\+O\+U\+N\+T as the test condition parameter, initialises sensor values
+
+Each reading value is parsed from the input file in the loop The first row from the input file is ignored by \char`\"{}row\+\_\+count == 1\char`\"{} \hypertarget{program__final_8c_a324ff8489e9268cc3a3f2f77628dd629}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!fusedvalue@{fusedvalue}}
+\index{fusedvalue@{fusedvalue}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{fusedvalue}]{\setlength{\rightskip}{0pt plus 5cm}void fusedvalue (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{fp, }
+\item[{char $\ast$}]{prevtime}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_a324ff8489e9268cc3a3f2f77628dd629}
+
+
+Function to compute the fused value as mentioned in the paper. 
+
+Main functioning of the algorithm, contains all the computation steps 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file} & pointer fp \\
+\hline
+\mbox{\tt in}  & {\em previous} & time \\
+\hline
+\end{DoxyParams}
+Computing the support degree matrix For the given number of sensors, support degree matrix is generated
+
+Calculating eigen values and corresponding eigen vector using G\+S\+L For a given support degree matrix of sensors the corresponding eigen values and vectors are produced
+
+Compute principal component of the degree matrix Computed principal component for each of eigen vector
+
+Calculate the contribution rate of principal component \char`\"{}alpha\char`\"{} Compute the contribution rate of kth and mth principal components as per the paper
+
+Compute integrated support degree Computed support degree matrix for each of the sensors
+
+Calculate condition
+
+Eliminating invalid sensor readings Discard the faulty sensor readings from the support degree matrix Compute weighted coefficients for each sensors from the support degree matrix
+
+Compute the weight coefficient for each sensor Compute the aggregated value of sensors from the weighted coefficients
+
+Return the fused\+\_\+value
+
+List of sensors that are stuck (i.\+e. sensors whose value does not change after a time “t”\hypertarget{program__final_8c_a02fd73d861ef2e4aabb38c0c9ff82947}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!init@{init}}
+\index{init@{init}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_a02fd73d861ef2e4aabb38c0c9ff82947}
+
+
+Function to reset the values of each element of the degree matrix to \char`\"{}0\char`\"{}. 
+
+clears any previous sensor values \hypertarget{program__final_8c_a840291bc02cba5474a4cb46a9b9566fe}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!main@{main}}
+\index{main@{main}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+File handling operatoins are done below. 
+
+Input read from .csv file opened in \char`\"{}r\char`\"{} mode appropriate exception handling is done Output generated at in a .csv file format and saved \hypertarget{program__final_8c_afd70623c27670ccd36072e13afdb50b6}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!my\+\_\+abs@{my\+\_\+abs}}
+\index{my\+\_\+abs@{my\+\_\+abs}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{my\+\_\+abs}]{\setlength{\rightskip}{0pt plus 5cm}double my\+\_\+abs (
+\begin{DoxyParamCaption}
+\item[{double}]{f}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_afd70623c27670ccd36072e13afdb50b6}
+
+
+Function to check test file. 
+
+file pointer is checked whether it works or not \hypertarget{program__final_8c_a2b78afc3f3a677b680c9173116866acd}{}\index{program\+\_\+final.\+c@{program\+\_\+final.\+c}!take\+\_\+tokens\+\_\+value@{take\+\_\+tokens\+\_\+value}}
+\index{take\+\_\+tokens\+\_\+value@{take\+\_\+tokens\+\_\+value}!program\+\_\+final.\+c@{program\+\_\+final.\+c}}
+\subsubsection[{take\+\_\+tokens\+\_\+value}]{\setlength{\rightskip}{0pt plus 5cm}void take\+\_\+tokens\+\_\+value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{program__final_8c_a2b78afc3f3a677b680c9173116866acd}
+
+
+Function to set sensor values. 
+
+sensor name and value is set according to tokens 
